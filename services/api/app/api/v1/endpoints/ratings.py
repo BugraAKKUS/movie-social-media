@@ -70,7 +70,6 @@ async def create_rating(
 async def get_movie_ratings(
     movie_id: str,
     db: AsyncSession = Depends(get_db),
-    current_user: User | None = None,
 ):
     agg = await db.execute(
         select(
@@ -80,22 +79,10 @@ async def get_movie_ratings(
     )
     row = agg.one()
 
-    user_rating = None
-    if current_user:
-        ur = await db.execute(
-            select(Rating.score).where(
-                Rating.user_id == current_user.id,
-                Rating.movie_id == movie_id,
-            )
-        )
-        r = ur.scalar_one_or_none()
-        if r is not None:
-            user_rating = float(r)
-
     return MovieRatingAggregateResponse(
         avg_score=round(float(row.avg or 0), 2),
         count=row.count,
-        user_rating=user_rating,
+        user_rating=None,
     )
 
 

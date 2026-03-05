@@ -11,13 +11,13 @@ export default function Home() {
       </p>
       <div className="flex gap-4">
         <Link
-          href="/(auth)/login"
+          href="/login"
           className="px-6 py-3 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors"
         >
           Sign In
         </Link>
         <Link
-          href="/(auth)/register"
+          href="/register"
           className="px-6 py-3 border border-gray-700 text-white rounded-lg hover:bg-gray-800 transition-colors"
         >
           Create Account
